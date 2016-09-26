@@ -3,15 +3,14 @@ MAINTAINER Howard Deiner
 
 # Install MySQL
 # See https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-14-04
-RUN export DEBIAN_FRONTEND=noninteractive
-RUN apt-get update
-RUN apt-get -q -y install mysql-server 
-RUN mysql_install_db
-RUN /etc/init.d/mysql start
+RUN DEBIAN_FRONTEND=noninteractive apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get -q -y install mysql-server
+RUN DEBIAN_FRONTEND=noninteractive mysql_install_db
+RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+RUN /usr/sbin/mysqld & sleep 10s && echo "GRANT ALL ON *.* TO admin@'%' IDENTIFIED BY 'changeme' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql
 
-# Allow port 80 and 3306 for communication.  
-EXPOSE 80
+# mysql client connect over port 3306
 EXPOSE 3306
 
 # Default service
-CMD ["/etc/init.d/mysql", "start"]
+CMD ["/usr/bin/mysqld_safe"]
