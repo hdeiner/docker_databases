@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y mongodb-org && mkdir -p /data/db
 EXPOSE 27017
 
 # Set /usr/bin/mongod as the dockerized entry-point application
-ENTRYPOINT ["/usr/bin/mongod"]
+CMD ["/usr/bin/mongod"]
 
 # on host:
 #
