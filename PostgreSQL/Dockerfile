@@ -12,7 +12,6 @@ RUN echo 'host all all 0.0.0.0/0 trust' > /etc/postgresql/9.3/main/pg_hba.conf
 EXPOSE 5432
 
 # Default service
-#CMD ["service", "postgresql", "start", "&&", "tail", "-f", "/var/log/postgresql/postgresql-9.3-main.log"]
 CMD ["sudo", "-u", "postgres", "/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
 
 # on host:
