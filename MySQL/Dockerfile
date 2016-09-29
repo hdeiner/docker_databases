@@ -13,11 +13,18 @@ EXPOSE 3306
 # Default service
 CMD ["/usr/bin/mysqld_safe"]
 
+# on host:
+#
+# to build (from dbSetup directory):
+# docker build -t mysql:latest MySQL
+#
 # to run:
 # docker run -p 3306:3306 mysql:latest
 #
 # to start a client, try:
-# mysql -u root --protocol=tcp --port=3306 -u admin -p  (answer "changeme" for password)
+# mysql --protocol=tcp --port=3306 -u admin -p
+#
+# the password for admin is changeme
 #
 # and don't forget about:
 # docker stop $(docker ps -a -q)
